@@ -1,10 +1,11 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
 
-const OutlinedButton = ({ children, color, hovercolor,...props }) => {
+const OutlinedButton = ({ children, color, hovercolor,type="button",...props }) => {
   return (
     <Button
       variant="outlined"
+      type={type}
       sx={{
         color,
         height: "2rem",
@@ -17,6 +18,7 @@ const OutlinedButton = ({ children, color, hovercolor,...props }) => {
           borderColor: hovercolor, // Keep border color fixed
         },
       }}
+      {...props}
     >
       <Typography>{children}</Typography>
     </Button>

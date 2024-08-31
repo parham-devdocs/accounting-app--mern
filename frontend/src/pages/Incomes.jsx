@@ -1,38 +1,102 @@
 import React, { useState } from "react";
 
-import { Typography } from "@mui/material";
+import {  Typography } from "@mui/material";
 import DataGridDemo from "../components/Table";
 import { apiRequest } from "../axios";
 import Header from "../components/Header";
-import { useMode,tokens } from "../Theme"
+import { useMode, tokens } from "../Theme";
+import Modal from "../components/UI/Modal";
+
+
 const Expenses = () => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
-    const [incomes, setIncomes] = useState([]);
-    const delete_income = (id) => {
-      apiRequest.delete(`/transactions/delete-income/${id}`);
-      get_incomes();
-    };
-    const get_incomes = () => {
-      apiRequest
-        .get(`transactions/get-incomes`)
-        .then((res) => {
-          const transformedData = res.data.map((item, index) => ({
-            id: index + 1,
-            ...item,
-          }));
-          setIncomes(transformedData);
-        })
-        .catch((err) => console.log(err));
-    };
+  const [incomes, setIncomes] = useState([]);
+  const [shoeModal, setShowModal] = useState(false);
+
+  ///////  delete an income
+
+  const delete_income = (id) => {
+    apiRequest.delete(`/transactions/delete-income/${id}`);
+    get_incomes();
+  };
+
+  /////// get all incomes
+
+  const get_incomes = () => {
+    apiRequest
+      .get(`transactions/get-incomes`)
+      .then((res) => {
+        const transformedData = res.data.map((item, index) => ({
+          id: index + 1,
+          ...item,
+        }));
+        setIncomes(transformedData);
+      })
+      .catch((err) => console.log(err));
+  };
+  //////// update an income
+
+  
+   const update_income = (row) => {
+     console.log(`/transactions/update-expense/${row._id}`);
+     apiRequest
+       .put(`/transactions/update-income/${row._id}`, row)
+       .then(() => get_incomes())
+       .catch((err) => console.log(err.message));
+   };
+  /////// add an income
+
+  const add_income = (values) => {
+    apiRequest
+      .post(`transactions/add-income`, values)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    get_incomes();
+    console.log(incomes);
+    setShowModal(prev=>!prev)
+  };
+
   return (
     <>
-            <Header title="Incomes" subtitle="Track & Analyze Your Incomes" btnColor={ colors.greenAccent[400] } btnText="Add Income" btnHoverColor={colors.greenAccent[600]} />
+      <Header
+        title="Incomes"
+        subtitle="Track & Analyze Your Incomes"
+        btnColor={colors.greenAccent[400]}
+        btnText="Add Income"
+        btnHoverColor={colors.greenAccent[600]}
+        onShowModalHandler={() => setShowModal((prev) => !prev)}
+      />
 
-    <DataGridDemo getFn={get_incomes} deleteFn={(id)=>delete_income(id)} data={incomes} />
+      <DataGridDemo
+        getFn={get_incomes}
+        deleteFn={(id) => delete_income(id)}
+        data={incomes}
+        updateFn={update_income}
+      />
+      <Modal
+        showModal={shoeModal}
+        categories={[
+          "Housing",
+          "Transportation",
+          "Food",
+          "Health care",
+          "Personal care",
+          "Entertainment",
+          "Clothing",
+          "Education",
+          "Insurance",
+          "bussiness Expenses",
+          "Others",
+        ]}
+        onCloseModalHandler={() => {
+          console.log(shoeModal)
+          setShowModal(false)
+        }}
+        handleFormSubmit={add_income}
+      />
     </>
-  )
+  );
 };
 
 export default Expenses;
- 

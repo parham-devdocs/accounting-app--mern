@@ -12,8 +12,7 @@ import { useState } from "react";
 import { tokens, useMode } from "../../Theme";
 import OutlinedButton from "./OutlinedButton";
 import { Formik } from "formik";
-import { apiRequest } from "../../axios";
-import axios from "axios";
+
 
 const ModalBox = ({ categories, showModal, onCloseModalHandler,api,handleFormSubmit }) => {
   const [theme] = useMode();

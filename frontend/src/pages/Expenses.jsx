@@ -85,7 +85,7 @@ const Expenses = () => {
           "Others",
         ]}
         onCloseModalHandler={() => setShowModal(false)}
-        api="add-expense"
+        
         handleFormSubmit={add_expense}
       />
     </>

@@ -7,11 +7,12 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HelpIcon from "@mui/icons-material/Help";
 import OutlinedButton from "./UI/OutlinedButton";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
-
+const navigate=useNavigate()
   return (
     <Box
       sx={{
@@ -44,6 +45,7 @@ function Navbar() {
           <OutlinedButton
             color={colors.blueAccent[400]}
             hovercolor={colors.blueAccent[600]}
+            onClick={()=>navigate('/login')}
           >
             Sign In
           </OutlinedButton>

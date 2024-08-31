@@ -2,9 +2,11 @@ import { createContext } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { tokens, useMode } from "./Theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "./Layouts/Layout";
 import Expenses from "./pages/Expenses";
 import Incomes from "./pages/Incomes";
+import Login from "./pages/Auth/Login";
+
 const ColorModeContext = createContext();
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
               <Route path="/Expenses" element={<Expenses />} />
               <Route path="/Incomes" element={<Incomes />} />
             </Route>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

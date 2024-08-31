@@ -45,7 +45,7 @@ const navigate=useNavigate()
           <OutlinedButton
             color={colors.blueAccent[400]}
             hovercolor={colors.blueAccent[600]}
-            onClick={()=>navigate('/login')}
+            onClick={()=>navigate('/auth/login')}
           >
             Sign In
           </OutlinedButton>

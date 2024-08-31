@@ -6,6 +6,7 @@ import Layout from "./Layouts/Layout";
 import Expenses from "./pages/Expenses";
 import Incomes from "./pages/Incomes";
 import Login from "./pages/Auth/Login";
+import AuthLayout from "./Layouts/AuthLayout";
 
 const ColorModeContext = createContext();
 
@@ -22,7 +23,9 @@ function App() {
               <Route path="/Expenses" element={<Expenses />} />
               <Route path="/Incomes" element={<Incomes />} />
             </Route>
-            <Route path="/login" element={<Login />} />
+            <Route path="/auth" element={<AuthLayout/>}>
+              <Route path="login" element={<Login />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

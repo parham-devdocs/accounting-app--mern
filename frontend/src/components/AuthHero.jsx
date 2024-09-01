@@ -35,7 +35,7 @@ const AuthHero = () => {
     >
       <Typography
         variant="h2"
-        color={colors.greenAccent[500]}
+        color={colors.greenAccent[600]}
         className=" animate-fadeIn"
       >
         Simplify Your Finances

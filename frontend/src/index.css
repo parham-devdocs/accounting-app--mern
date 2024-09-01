@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.swiper-pagination-bullet-active {
+  background-color: #4cceac !important; /* Use !important to override any inline styles */
+
+
+}

@@ -4,6 +4,8 @@ import TypeEffect from "./UI/TypeEffect.jsx";
 import Slider from "./UI/Slider.jsx";
 import OutlinedButton from "./UI/OutlinedButton";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { Toaster, toast } from "sonner";
+
 import {
   dashboard_1,
   dashboard_2,
@@ -50,8 +52,7 @@ const AuthHero = () => {
         <OutlinedButton
           color={colors.greenAccent[500]}
           hovercolor={colors.greenAccent[700]}
-          
-          endIcon={<KeyboardDoubleArrowRightIcon className=" animate-pulse"/>}
+          endIcon={<KeyboardDoubleArrowRightIcon className=" animate-pulse" />}
         >
           Testimonials
         </OutlinedButton>
@@ -77,6 +78,7 @@ const AuthHero = () => {
           { src: dashboard_5, label: "Dashboard 5" },
         ]}
       />
+     
     </Box>
   );
 };

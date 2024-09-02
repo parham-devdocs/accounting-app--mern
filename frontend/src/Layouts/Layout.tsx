@@ -2,8 +2,11 @@ import React from "react";
 import { Outlet } from "react-router-dom"; // Import Outlet
 import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { tokens, useMode } from "../Theme";
+import { Toaster } from 'sonner';
+import { toast } from 'sonner';
+import OutlinedButton from './../components/UI/OutlinedButton';
 
 const Layout = () => {
   const [theme, colorMode] = useMode();
@@ -18,6 +21,7 @@ const Layout = () => {
           {" "}
           <Outlet />
         </Box>
+
       </Box>
     </div>
   );

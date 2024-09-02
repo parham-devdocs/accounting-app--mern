@@ -44,11 +44,7 @@ const loginSchema = yup.object({
   Password: yup
     .string()
     .required("Password is required")
-    .min(8, "Password must include at least 8 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must include uppercase, lowercase, and symbols"
-    ),
+   
 
 });
 

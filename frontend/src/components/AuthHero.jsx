@@ -43,7 +43,7 @@ const AuthHero = () => {
       <TypeEffect
         list={list}
         textFontColor={colors.grey[300]}
-        cursorFontColor="whitesmoke"
+        cursorFontColor="wheat"
         fontSize="25px"
       />
       <Slider

@@ -1,13 +1,15 @@
 import React from 'react'
 import  ReactTypingEffect  from 'react-typing-effect';
 import { tokens, useMode } from '../../Theme';
-const TypeEffect = ({list,fontSize,textFontColor,cursorFontColor}) => {
+const TypeEffect = ({list,fontSize,textFontColor,cursorFontColor,staticText,minWidth,...styles}) => {
   const [theme] = useMode(); // Ensure useMode returns the correct theme
   const colors = tokens(theme.palette.mode); // Make sure tokens function is defined properly
 
   return (
     <ReactTypingEffect
       text={list}
+    style={{minWidth}}
+      staticText={staticText}
       cursorRenderer={(cursor) => (
         <h1 style={{ color: cursorFontColor, fontSize: fontSize }}>{cursor}</h1>
       )}
@@ -19,7 +21,7 @@ const TypeEffect = ({list,fontSize,textFontColor,cursorFontColor}) => {
               return (
                 <span
                   key={key}
-                  style={{ color: textFontColor, fontSize: fontSize }}
+                  style={{ color: textFontColor, fontSize: fontSize,...styles }}
                 >
                   {char}
                 </span>

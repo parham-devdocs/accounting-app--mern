@@ -1,12 +1,22 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
+import  KeyboardDoubleArrowRightIcon  from '@mui/icons-material/KeyboardDoubleArrowRight';
 
-const OutlinedButton = ({ children, color, hovercolor,type="button",...props }) => {
+const OutlinedButton = ({
+  children,
+  color,
+  hovercolor,
+  type = "button",
+  endIcon,
+  startIcon,
+  ...props
+}) => {
   return (
     <Button
       variant="outlined"
       type={type}
       sx={{
+        ...props,
         color,
         height: "2rem",
 
@@ -18,6 +28,8 @@ const OutlinedButton = ({ children, color, hovercolor,type="button",...props }) 
           borderColor: hovercolor, // Keep border color fixed
         },
       }}
+      endIcon={endIcon}
+    startIcon={startIcon}
       {...props}
     >
       <Typography>{children}</Typography>

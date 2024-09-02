@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import TypeEffect from "./UI/TypeEffect.jsx";
 import Slider from "./UI/Slider.jsx";
 import OutlinedButton from "./UI/OutlinedButton";
-import Button from "../components/UI/Button.jsx";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import {
   dashboard_1,
   dashboard_2,
@@ -31,22 +31,40 @@ const AuthHero = () => {
       height="100vh"
       p={10}
       flexDirection="column"
-      gap={2}
+      gap={1}
     >
-      <Typography
-        variant="h2"
-        color={colors.greenAccent[600]}
-        className=" animate-fadeIn"
+      <Box
+        component="section"
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
       >
-        Simplify Your Finances
-      </Typography>
+        <Typography
+          variant="h2"
+          color={colors.greenAccent[600]}
+          className=" animate-fadeIn"
+        >
+          Simplify Your Finances
+        </Typography>
+        <OutlinedButton
+          color={colors.greenAccent[500]}
+          hovercolor={colors.greenAccent[700]}
+          
+          endIcon={<KeyboardDoubleArrowRightIcon className=" animate-pulse"/>}
+        >
+          Testimonials
+        </OutlinedButton>
+      </Box>
+
       <TypeEffect
         list={list}
-        textFontColor={colors.grey[300]}
+        textFontColor="wheat"
         cursorFontColor="wheat"
         fontSize="25px"
       />
       <Slider
+        className=" animate-fadeIn"
         spaceBetween={10}
         SlidesPerView={1}
         autoplay={{ delay: 3000 }}
@@ -58,8 +76,7 @@ const AuthHero = () => {
           { src: dashboard_4, label: "Dashboard 4" },
           { src: dashboard_5, label: "Dashboard 5" },
         ]}
-      />{" "}
-    
+      />
     </Box>
   );
 };

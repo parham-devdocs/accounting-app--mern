@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 import db from "./db/db.js";
 import transactions from "./routes/transactions.js";
+import user from "./routes/users.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors())
 // Define routes here
 app.use("/api/v1/transactions",transactions);
+app.use("/api/v1/auth", user );
 
 // Start the server
 app.listen(PORT, () => {

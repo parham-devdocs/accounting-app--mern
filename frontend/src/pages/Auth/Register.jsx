@@ -108,10 +108,13 @@ const Login = () => {
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
-                    console.log(errors)
-                    !errors.Username && !errors.Email && !errors.Password && !errors.Confirm
-                      ? setInputReceived(()=>true)
-                      : setInputReceived(()=>false);
+                    console.log(errors);
+                    !errors.Username &&
+                    !errors.Email &&
+                    !errors.Password &&
+                    !errors.Confirm
+                      ? setInputReceived(() => true)
+                      : setInputReceived(() => false);
                   }}
                   value={values[input]} // Correct binding
                   name={input} // Set name attribute for Formik
@@ -150,9 +153,7 @@ const Login = () => {
               variant="body2"
               color={colors.greenAccent[500]}
               sx={{ cursor: "pointer" }}
-              onClick={() => {
-                /* Add your navigation logic here */
-              }}
+              href="/auth/login"
             >
               Already have an account? Log in
             </Link>

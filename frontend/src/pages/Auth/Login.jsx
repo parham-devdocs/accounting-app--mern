@@ -6,16 +6,19 @@ import Button from "../../components/UI/OutlinedButton";
 import * as yup from "yup";
 import { Formik } from "formik";
 import TypeEffect from "../../components/UI/TypeEffect";
-
+import useFetch from "../../hooks/useFetch";
+import axios from "axios";
 const Login = () => {
+  ////// theme hooks
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
+  ///// states 
   const [inputReceived, setInputReceived] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  console.log("render");
+  ///// schema for yup validation
   const validationSchema = yup.object({
     email: yup
       .string()
@@ -23,10 +26,23 @@ const Login = () => {
       .required("Email is required"),
     password: yup.string().required("Password is required"),
   });
+  ////// submit handler
+  const handleFormSubmit = async (values) => {
+    console.log(values)
+    try {
+       const res = await axios.post("http://localhost:5000/api/v1/auth/login", {
+         Email: values.email,
+         Password: values.password,
+       });
+      
+      if (res.status == 422) {
+        console.log("user not found")
+      }
+    } catch (err) {
+      console.log()
+    }
+   
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-    // You can set inputReceived to true or handle your login logic here
     setInputReceived(true);
   };
 

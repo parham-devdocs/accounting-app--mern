@@ -1,4 +1,4 @@
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { tokens, useMode } from "../../Theme";
 import Input from "../../components/UI/Input";
@@ -14,7 +14,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-console.log('render')
+  console.log("render");
   const validationSchema = yup.object({
     email: yup
       .string()
@@ -108,6 +108,7 @@ console.log('render')
               {touched.password && errors.password}
             </Typography>
           </Box>
+
           <Button
             sx={{
               color: inputReceived ? colors.greenAccent[500] : colors.grey[500],
@@ -129,9 +130,6 @@ console.log('render')
           >
             Login
           </Button>
-          <Link  variant="p" color={colors.greenAccent[500]} marginTop={-2} sx={{cursor:"pointer"}} href="/auth/register" >
-            Don't have an account ? sign up
-          </Link>
         </Box>
       )}
     </Formik>

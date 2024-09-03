@@ -9,6 +9,9 @@ import TypeEffect from "../../components/UI/TypeEffect";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import { toast ,Toaster} from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/reducers/userInfo";
+
 const formInputs = ["Username", "Email", "Password", "Confirm"];
 
 const Login = () => {
@@ -16,6 +19,10 @@ const Login = () => {
 
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
+  //////// hook to storing login status into redux
+
+  /////// dispacth hook for storing user data in redux
+  const dispatch = useDispatch();
 
   //////// use navigate for redirecting logged in users to dashboard
   const navigate = useNavigate();
@@ -63,6 +70,7 @@ const Login = () => {
       toast.error(error); // Show error toast if there's an error
     } else if (data) {
       toast.success("User Signed Up successfully"); // Show success toast if data is received
+      dispatch(login());
 
       setTimeout(() => {
         // a delay of 2 secs before navigation
@@ -166,13 +174,9 @@ const Login = () => {
             <Button
               sx={{
                 color:
-                  isValid && dirty
-                    ? colors.greenAccent[500]
-                    : colors.grey[500],
+                  isValid && dirty ? colors.greenAccent[500] : colors.grey[500],
                 borderColor:
-                  isValid && dirty
-                    ? colors.greenAccent[500]
-                    : colors.grey[500],
+                  isValid && dirty ? colors.greenAccent[500] : colors.grey[500],
                 "&:hover": {
                   backgroundColor: "transparent",
                   color:
@@ -187,7 +191,7 @@ const Login = () => {
                 p: "10px",
               }}
               onClick={handleSubmit} // Trigger Formik's handleSubmit
-              disabled={!isValid &&  !dirty}
+              disabled={!isValid && !dirty}
             >
               Login
             </Button>

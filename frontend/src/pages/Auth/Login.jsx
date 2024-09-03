@@ -9,11 +9,16 @@ import TypeEffect from "../../components/UI/TypeEffect";
 import { toast, Toaster } from "sonner";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import { useNavigate } from "react-router-dom";
-
+import {useDispatch  } from "react-redux";
+import {  login } from "../../redux/reducers/userInfo";
 const Login = () => {
   /////// hooks for theme
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
+
+  /////// dispacth hook for storing user data in redux
+ 
+  const dispatch=useDispatch()
 
   //////// use navigate for redirecting logged in users to dashboard
   const navigate = useNavigate();
@@ -41,6 +46,7 @@ const Login = () => {
       Email: values.email,
       Password: values.password,
     });
+
   };
 
   ////// use effect for updating data and error
@@ -50,7 +56,7 @@ const Login = () => {
       toast.error(error); // Show error toast if there's an error
     } else if (data) {
       toast.success("User logged in successfully"); // Show success toast if data is received
-
+dispatch(login())
       setTimeout(() => { // a delay of 2 secs before navigation
 
         navigate("/dashboard");

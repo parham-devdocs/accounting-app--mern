@@ -1,48 +1,63 @@
 import { Box, Link, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect } from "react";
 import { tokens, useMode } from "../../Theme";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/OutlinedButton";
 import * as yup from "yup";
 import { Formik } from "formik";
 import TypeEffect from "../../components/UI/TypeEffect";
-import axios from "axios";
 import { toast, Toaster } from "sonner";
+import useAuthFetch from "../../hooks/useAuthFetch";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  /////// hooks for theme
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
 
+  //////// use navigate for redirecting logged in users to dashboard
+  const navigate = useNavigate();
+
+  //////// custom hook for posting auth data
+  const { onFetchHandler, data, error } = useAuthFetch({
+    api: "http://localhost:5000/api/v1/auth/login",
+  });
+
+  /////// yup validation schema
   const validationSchema = yup.object({
     email: yup
       .string()
-      .email("Enter a valid email")
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Please enter a valid email"
+      )
       .required("Email is required"),
     password: yup.string().required("Password is required"),
   });
 
+  ////// handle from submission button
   const handleFormSubmit = async (values) => {
-    try {
-      const res = await axios.post("http://localhost:5000/api/v1/auth/login", {
-        Email: values.email,
-        Password: values.password,
-      });
-      toast.success("Login successful!");
-    } catch (err) {
-      if (err.response) {
-        if (err.response.status === 422) {
-          toast.error("User not found");
-          console.log("User not found");
-        } else if (err.response.status === 401) {
-          toast.error("Unauthorized access");
-        } else {
-          toast.error("Server not responding, please try again!");
-        }
-      } else {
-        toast.error("Network error, please check your connection.");
-      }
-    }
+    onFetchHandler({
+      Email: values.email,
+      Password: values.password,
+    });
   };
+
+  ////// use effect for updating data and error
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error); // Show error toast if there's an error
+    } else if (data) {
+      toast.success("User logged in successfully"); // Show success toast if data is received
+
+      setTimeout(() => { // a delay of 2 secs before navigation
+
+        navigate("/dashboard");
+      }, 2000);
+      console.log(data);
+    }
+  }, [data, error]); // Runs whenever 'data' or 'error' changes
 
   return (
     <Formik
@@ -67,8 +82,6 @@ const Login = () => {
           gap={13}
           alignItems="center"
           paddingTop={-4}
-     
-        
         >
           <Box
             component="section"
@@ -159,6 +172,7 @@ const Login = () => {
               }}
               onClick={handleSubmit}
               disabled={!isValid || !dirty} // Disable button if form is invalid or untouched
+              loading
             >
               Login
             </Button>
@@ -175,7 +189,7 @@ const Login = () => {
 
             <Toaster
               position="bottom-right"
-              style={{  color:"ThreeDFace" }}
+              style={{ color: "ThreeDFace" }}
               expand
               richColors
             />

@@ -20,10 +20,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route path="/Expenses" element={<Expenses />} />
-              <Route path="/Incomes" element={<Incomes />} />
-            </Route>
+            <Route path="/dashboard" element={<Layout />}>
+              <Route path="Expenses" element={<Expenses />} />
+              <Route path="Incomes" element={<Incomes />} />
+            </Route>z
             <Route path="/auth" element={<AuthLayout/>}>
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register/>}/>

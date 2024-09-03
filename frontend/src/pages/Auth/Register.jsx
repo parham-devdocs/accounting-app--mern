@@ -1,18 +1,27 @@
 import { Box, Link, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { tokens, useMode } from "../../Theme";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/OutlinedButton";
 import * as yup from "yup";
 import { Formik } from "formik";
 import TypeEffect from "../../components/UI/TypeEffect";
-
+import useAuthFetch from "../../hooks/useAuthFetch";
+import { toast ,Toaster} from "sonner";
+import { useNavigate } from "react-router-dom";
 const formInputs = ["Username", "Email", "Password", "Confirm"];
 
 const Login = () => {
+  /////// hooks for theme
+
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
+
+  //////// use navigate for redirecting logged in users to dashboard
+  const navigate = useNavigate();
+
   const [inputReceived, setInputReceived] = useState(false);
+
   const [formData, setFormData] = useState({
     Username: "",
     Email: "",
@@ -33,10 +42,36 @@ const Login = () => {
       .oneOf([yup.ref("Password"), null], "Passwords must match"),
   });
 
+  const { onFetchHandler, data, error } = useAuthFetch({
+    api: "http://localhost:5000/api/v1/auth/signup",
+  });
+
   const handleFormSubmit = (values) => {
-    console.log(values);
+    onFetchHandler({
+      Username: values.Username,
+      Email: values.Email,
+      Password: values.Password,
+      Confirm: values.Confirm,
+    });
     setInputReceived(true);
   };
+
+  ////// use effect for updating data and error
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error); // Show error toast if there's an error
+    } else if (data) {
+      toast.success("User Signed Up successfully"); // Show success toast if data is received
+
+      setTimeout(() => {
+        // a delay of 2 secs before navigation
+
+        navigate("/dashboard");
+      }, 2000);
+      console.log(data);
+    }
+  }, [data, error]); // Runs whenever 'data' or 'error' changes
 
   return (
     <Formik
@@ -51,6 +86,8 @@ const Login = () => {
         handleBlur,
         handleChange,
         handleSubmit,
+        isValid,
+        dirty,
       }) => (
         <Box
           component="main"
@@ -128,24 +165,29 @@ const Login = () => {
 
             <Button
               sx={{
-                color: inputReceived
-                  ? colors.greenAccent[500]
-                  : colors.grey[500],
-                borderColor: inputReceived
-                  ? colors.greenAccent[500]
-                  : colors.grey[500],
+                color:
+                  isValid && dirty
+                    ? colors.greenAccent[500]
+                    : colors.grey[500],
+                borderColor:
+                  isValid && dirty
+                    ? colors.greenAccent[500]
+                    : colors.grey[500],
                 "&:hover": {
                   backgroundColor: "transparent",
-                  color: inputReceived
-                    ? colors.greenAccent[500]
-                    : colors.grey[500],
-                  borderColor: inputReceived
-                    ? colors.greenAccent[500]
-                    : colors.grey[500],
+                  color:
+                    isValid && dirty
+                      ? colors.greenAccent[500]
+                      : colors.grey[500],
+                  borderColor:
+                    isValid && dirty
+                      ? colors.greenAccent[500]
+                      : colors.grey[500],
                 },
                 p: "10px",
               }}
               onClick={handleSubmit} // Trigger Formik's handleSubmit
+              disabled={!isValid &&  !dirty}
             >
               Login
             </Button>
@@ -154,9 +196,16 @@ const Login = () => {
               color={colors.greenAccent[500]}
               sx={{ cursor: "pointer" }}
               href="/auth/login"
+              disabled={!isValid || !dirty} // Disable button if form is invalid or untouched
             >
               Already have an account? Log in
             </Link>
+            <Toaster
+              position="bottom-right"
+              style={{ color: "ThreeDFace" }}
+              expand
+              richColors
+            />
           </Box>
         </Box>
       )}

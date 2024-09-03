@@ -13,6 +13,7 @@ const OutlinedButton = ({
 }) => {
   return (
     <Button
+      
       variant="outlined"
       type={type}
       sx={{

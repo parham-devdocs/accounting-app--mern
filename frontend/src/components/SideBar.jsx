@@ -12,18 +12,18 @@ import { useEffect, useState } from "react";
 import useWindowResize from "../hooks/useResizer";
 
 const sidebar = [
-  { label: "Profile", href: "/Profile", icon: <AccountCircleIcon /> },
-  { label: "Statistics", href: "/Statistics", icon: <StackedLineChartIcon /> },
-  { label: "Expenses", href: "/Expenses", icon: <PaymentOutlinedIcon /> },
-  { label: "Incomes", href: "/Incomes", icon: <AddCardOutlinedIcon /> },
+  { label: "Profile", href: "/dashboard/Profile", icon: <AccountCircleIcon /> },
+  { label: "Statistics", href: "/dashboard/Statistics", icon: <StackedLineChartIcon /> },
+  { label: "Expenses", href: "/dashboard/Expenses", icon: <PaymentOutlinedIcon /> },
+  { label: "Incomes", href: "/dashboard/Incomes", icon: <AddCardOutlinedIcon /> },
   {
     label: "Financial Goals",
-    href: "/Goals",
+    href: "/dashboard/Goals",
     icon: <EventAvailableOutlinedIcon />,
   },
   {
     label: "Currency Converter",
-    href: "/converter",
+    href: "/dashboard/converter",
     icon: <CurrencyExchangeOutlinedIcon />,
   },
 ];

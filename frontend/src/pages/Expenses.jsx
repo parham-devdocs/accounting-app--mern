@@ -9,10 +9,9 @@ const Expenses = () => {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
   const [expenses, setExpenses] = useState([]);
-  const [shoeModal, setShowModal] = useState(false)
-  
+  const [shoeModal, setShowModal] = useState(false);
 
-  /////// delete an expense
+  ///// delete an expense
   const delete_expenses = (id) => {
     apiRequest.delete(`/transactions/delete-expense/${id}`);
     get_expenses();
@@ -28,7 +27,7 @@ const Expenses = () => {
           ...item,
         }));
         setExpenses(transformedData);
-        console.log(expenses)
+        console.log(expenses);
       })
       .catch((err) => console.log(err));
   };
@@ -42,16 +41,21 @@ const Expenses = () => {
       .catch((err) => console.log(err.message));
   };
 
-///// add expense
-   const add_expense = (values) => {
-     apiRequest
-       .post(`transactions/add-expense`, values)
-       .then((res) => console.log(res))
-       .catch((err) => console.log(err));
-     get_expenses()
-     console.log(expenses)
-    
-   };
+  ///// add expense
+  const add_expense = (values) => {
+    apiRequest
+      .post(`transactions/add-expense`, values)
+      .then(() =>     get_expenses())
+      .catch((err) => console.log(err));
+    closeModalHandler()
+    console.log(expenses);
+  };
+  
+  const closeModalHandler = (e) => {
+    setShowModal((prev)=>!prev)
+
+    console.log(shoeModal)
+  }
   return (
     <>
       <Header
@@ -84,8 +88,7 @@ const Expenses = () => {
           "bussiness Expenses",
           "Others",
         ]}
-        onCloseModalHandler={() => setShowModal(false)}
-        
+        onCloseModalHandler={closeModalHandler}
         handleFormSubmit={add_expense}
       />
     </>

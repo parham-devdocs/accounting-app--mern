@@ -23,7 +23,6 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => {
-        console.log(params);
         const date = new Date(params); // Access the createdAt field
         return dateFormatter.format(date); // Format the date using your dateFormatter
       },

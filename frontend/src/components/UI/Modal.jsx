@@ -13,8 +13,13 @@ import { tokens, useMode } from "../../Theme";
 import OutlinedButton from "./OutlinedButton";
 import { Formik } from "formik";
 
-
-const ModalBox = ({ categories, showModal, onCloseModalHandler,api,handleFormSubmit }) => {
+const ModalBox = ({
+  categories,
+  showModal,
+  onCloseModalHandler,
+  
+  handleFormSubmit,
+}) => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   const [formData, setFormData] = useState({
@@ -32,8 +37,6 @@ const ModalBox = ({ categories, showModal, onCloseModalHandler,api,handleFormSub
     description: yup.string().required("Description is required"),
     amount: yup.number().required("Amount is required"),
   });
-
- 
 
   // Define an array of input fields including the date field
   const inputFields = [
@@ -75,7 +78,6 @@ const ModalBox = ({ categories, showModal, onCloseModalHandler,api,handleFormSub
             {inputFields.map(({ type, placeholder, key }) => (
               <Box key={key} component="div" className=" h-20">
                 <TextField
-            
                   className=" w-full"
                   type={type}
                   placeholder={placeholder}

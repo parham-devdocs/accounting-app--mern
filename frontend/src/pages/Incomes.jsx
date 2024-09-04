@@ -12,7 +12,7 @@ const Expenses = () => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   const [incomes, setIncomes] = useState([]);
-  const [shoeModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   ///////  delete an income
 
@@ -42,7 +42,7 @@ const Expenses = () => {
      console.log(`/transactions/update-expense/${row._id}`);
      apiRequest
        .put(`/transactions/update-income/${row._id}`, row)
-       .then(() => get_incomes())
+       .then((res) => { get_incomes(); console.log(res.data) })
        .catch((err) => console.log(err.message));
    };
   /////// add an income
@@ -50,13 +50,19 @@ const Expenses = () => {
   const add_income = (values) => {
     apiRequest
       .post(`transactions/add-income`, values)
-      .then((res) => console.log(res))
+      .then((res) => get_incomes())
       .catch((err) => console.log(err));
     get_incomes();
     console.log(incomes);
     setShowModal(prev=>!prev)
   };
 
+
+  const closeModalHandler = (e) => {
+    setShowModal((prev)=>!prev)
+
+    console.log(showModal)
+  }
   return (
     <>
       <Header
@@ -75,7 +81,7 @@ const Expenses = () => {
         updateFn={update_income}
       />
       <Modal
-        showModal={shoeModal}
+        showModal={showModal}
         categories={[
           "Housing",
           "Transportation",
@@ -89,10 +95,7 @@ const Expenses = () => {
           "bussiness Expenses",
           "Others",
         ]}
-        onCloseModalHandler={() => {
-          console.log(shoeModal)
-          setShowModal(false)
-        }}
+        onCloseModalHandler={closeModalHandler}
         handleFormSubmit={add_income}
       />
     </>

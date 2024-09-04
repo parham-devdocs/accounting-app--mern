@@ -75,8 +75,8 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
           height="100%"
         >
           <Button
-            color="#2e7c67"
-            borderColor="#2e7c67"
+            color={colors.greenAccent[500]}
+            borderColor={colors.greenAccent[500]}
             borderRadius="8px"
             disabled={params.disabled} // Disable when the cell is being edited
             onClick={() => updateFn(params.row)}
@@ -84,8 +84,8 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
             <ModeEditOutlineOutlinedIcon />
           </Button>
           <Button
-            color="#2e7c67"
-            borderColor="#2e7c67"
+            color={colors.greenAccent[500]}
+            borderColor={colors.greenAccent[500]}
             borderRadius="8px"
             onClick={() => {
               deleteFn(params.row._id);
@@ -108,7 +108,7 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
       bgcolor={colors.blueAccent[900]}
       borderRadius="5px"
       height="auto"
-      m="40px 0 0 0 "
+      m="15px 0 0 0 "
       sx={{
         "& .MuiDataGrid-root": {
           border: "none",
@@ -119,9 +119,7 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
         "& .MuiDataGrid-cell": {
           borderBottom: "none",
         },
-        "& .Mui-disabled": {
-          color: "red",
-        },
+       
         "& .MuiDataGrid-toolbarContainer button": {
           color: colors.greenAccent[600],
         },

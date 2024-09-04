@@ -4,9 +4,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { tokens, useMode } from "../../Theme";
-import { dateFormatter } from "../../../utils";
 
-export default function BasicDatePicker() {
+ function BasicDatePicker({onDateChangeHandler}) {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
 
@@ -16,8 +15,8 @@ export default function BasicDatePicker() {
         <DatePicker
           label="Pick a date"
           disableFuture
-          closeOnSelect
-          onChange={(e)=>console.log(e.$d)}
+                  closeOnSelect
+                  onChange={(e)=>onDateChangeHandler(e)}
           slotProps={{
             day: {
               sx: {
@@ -36,11 +35,11 @@ export default function BasicDatePicker() {
               color: colors.greenAccent[500],
               borderColor: colors.greenAccent[500],
             }, // Customize input text color
-            "& .MuiInputLabel-outlined":{color:colors.greenAccent[500]},
+            "& .MuiInputLabel-outlined": { color: colors.greenAccent[500] },
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
                 borderColor: colors.greenAccent[500],
-                color:colors.greenAccent[500]
+                color: colors.greenAccent[500],
               },
               "&:hover fieldset": {
                 borderColor: colors.greenAccent[600],
@@ -56,3 +55,5 @@ export default function BasicDatePicker() {
   );
 }
 
+
+export default BasicDatePicker

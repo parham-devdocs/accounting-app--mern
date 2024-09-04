@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { logout } from "../redux/reducers/userInfo";
 
-const navItems=[{label:"Home",href:"/"},{label:"Contact us",href:"/contact"},{label:"Contribute",href:"/Contribute"}]
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Contact us", href: "/contact" },
+  { label: "Contribute", href: "/Contribute" },
+];
 function Navbar() {
   ///////  hooks for theme
   const [theme, colorMode] = useMode();
@@ -61,27 +65,42 @@ function Navbar() {
         padding: "1rem",
       }}
     >
-      <Typography variant="h3" color={colors.greenAccent[500]}>
-        accountify
+      <Typography
+        variant="h3"
+        color={colors.greenAccent[500]}
+        fontFamily="monospace"
+        display="flex"
+      >
+        <Typography color={colors.blueAccent[500]} variant="h3">
+          Acc
+        </Typography>
+        ountify
       </Typography>
       {/* middle part */}
-      <Box display="flex" gap={5}>   
-        {navItems.map((item, index) => {
-         return  <Link underline="none" sx={{ cursor: "pointer" }} key={index} href={item.href}>
-          <Typography
-            variant="h5"
-            fontWeight={500}
-            fontSize={18}
-             color={colors.greenAccent[500]}
-           className=" hover:animate-scale-up"
-            
-          >
-            {item.label}
-          </Typography>
-        </Link>
-        })}
-       
-      </Box>
+      {!isLiggedin && (
+        <Box display="flex" gap={5}>
+          {navItems.map((item, index) => {
+            return (
+              <Link
+                underline="none"
+                sx={{ cursor: "pointer" }}
+                key={index}
+                href={item.href}
+              >
+                <Typography
+                  variant="h5"
+                  fontWeight={500}
+                  fontSize={18}
+                  color={colors.greenAccent[500]}
+                  className=" hover:animate-scale-up"
+                >
+                  {item.label}
+                </Typography>
+              </Link>
+            );
+          })}
+        </Box>
+      )}
       <Box display="flex">
         {/* Added gap here */}
 
@@ -203,8 +222,7 @@ function Navbar() {
               transitionDuration={700}
               sx={{
                 "& .MuiMenu-paper": {
-                  bgcolor: colors.primary[500],
-                  color: colors.greenAccent[500],
+                  color: colors.blueAccent[500],
                   marginTop: "5px",
                 },
               }}

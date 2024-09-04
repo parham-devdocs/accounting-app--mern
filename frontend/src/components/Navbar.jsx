@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"; // Import Typography for text
 
 import { tokens, useMode } from "../Theme";
-import { IconButton, Tooltip, Menu, MenuItem } from "@mui/material";
+import { IconButton, Tooltip, Menu, MenuItem, Zoom, Fade } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HelpIcon from "@mui/icons-material/Help";
@@ -60,27 +60,33 @@ function Navbar() {
       <Box display="flex">
         {/* Added gap here */}
 
+                          <Tooltip title={theme.palette.mode==='dark' ? "light":"dark"} placement="top-start"  TransitionComponent={Fade} >
+
         <IconButton
           size="large"
           onClick={() => {
             colorMode.toggleColorMode();
           }}
-        >
+          >
+          
           <LightModeIcon sx={{ color: colors.greenAccent[500] }} />
-        </IconButton>
-        {isLiggedin ? (
+          </IconButton>
+          </Tooltip>
+        {isLiggedin && (
+                            <Tooltip title="notifications" placement="top-start"  TransitionComponent={Fade} >
+
           <IconButton size="large">
             <NotificationsIcon sx={{ color: colors.greenAccent[500] }} />
-          </IconButton>
-        ) : (
-          <IconButton size="large">
-            <ChatIcon sx={{ color: colors.greenAccent[500] }} />
-          </IconButton>
+            </IconButton>
+            </Tooltip>
+        
         )}
+                  <Tooltip title="FAQ" placement="top-start"  TransitionComponent={Fade} >
+
         <IconButton size="large">
           <HelpIcon sx={{ color: colors.greenAccent[500] }} />
         </IconButton>
-
+</Tooltip>
         {!isLiggedin ? (
           <>
             <Box
@@ -138,7 +144,7 @@ function Navbar() {
             </Menu>
           </>
         ) : (
-          <Tooltip title="Add" placement="top-start">
+          <Tooltip title="Logout" placement="top-start"  TransitionComponent={Fade} >
             <IconButton size="large">
               <LogoutIcon sx={{ color: colors.redAccent[500] }} />
             </IconButton>

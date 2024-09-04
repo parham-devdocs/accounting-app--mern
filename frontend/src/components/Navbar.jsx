@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"; // Import Typography for text
 
 import { tokens, useMode } from "../Theme";
-import { IconButton, Tooltip, Menu, MenuItem, Fade } from "@mui/material";
+import { IconButton, Tooltip, Menu, MenuItem, Fade, Link } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HelpIcon from "@mui/icons-material/Help";
@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { logout } from "../redux/reducers/userInfo";
+
+const navItems=[{label:"Home",href:"/"},{label:"Contact us",href:"/contact"},{label:"Contribute",href:"/Contribute"}]
 function Navbar() {
   ///////  hooks for theme
   const [theme, colorMode] = useMode();
@@ -24,7 +26,7 @@ function Navbar() {
   const isLiggedin = useSelector((state) => state.isLoggedin);
   const { user } = useSelector((state) => state.user_info);
   /////// hook for dispatching redux store
-  const dispatch=useDispatch(user)
+  const dispatch = useDispatch(user);
   let Avatar = "";
   if (user.profileImage) {
     Avatar = <Box component="img" src={user.profileImage} borderRadius="50%" />;
@@ -42,11 +44,10 @@ function Navbar() {
   };
 
   const logoutHandler = () => {
-    handleClose()
-    dispatch(logout())
-    navigate('/auth/login')
-    
-  }
+    handleClose();
+    dispatch(logout());
+    navigate("/auth/login");
+  };
   return (
     <Box
       sx={{
@@ -63,6 +64,24 @@ function Navbar() {
       <Typography variant="h3" color={colors.greenAccent[500]}>
         accountify
       </Typography>
+      {/* middle part */}
+      <Box display="flex" gap={5}>   
+        {navItems.map((item, index) => {
+         return  <Link underline="none" sx={{ cursor: "pointer" }} key={index} href={item.href}>
+          <Typography
+            variant="h5"
+            fontWeight={500}
+            fontSize={18}
+             color={colors.greenAccent[500]}
+           className=" hover:animate-scale-up"
+            
+          >
+            {item.label}
+          </Typography>
+        </Link>
+        })}
+       
+      </Box>
       <Box display="flex">
         {/* Added gap here */}
 
@@ -170,15 +189,13 @@ function Navbar() {
           </>
         ) : (
           <>
-              <IconButton
-                
+            <IconButton
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-                sx={{ color: colors.greenAccent[500] }}
-                
+              onClick={handleClick}
+              sx={{ color: colors.greenAccent[500] }}
             >
               <MenuIcon />
             </IconButton>
@@ -207,9 +224,7 @@ function Navbar() {
                 horizontal: "right",
               }}
             >
-              <MenuItem onClick={() => navigate("/auth/login")}>
-                Login
-              </MenuItem>
+              <MenuItem onClick={() => navigate("/auth/login")}>Login</MenuItem>
               <MenuItem onClick={() => navigate("/auth/register")}>
                 Sign up
               </MenuItem>

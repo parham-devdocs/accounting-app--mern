@@ -2,18 +2,16 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"; // Import Typography for text
 
 import { tokens, useMode } from "../Theme";
-import { IconButton, Tooltip, Menu, MenuItem, Zoom, Fade } from "@mui/material";
+import { IconButton, Tooltip, Menu, MenuItem, Fade } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HelpIcon from "@mui/icons-material/Help";
-import ChatIcon from "@mui/icons-material/Chat";
 import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import OutlinedButton from "./UI/OutlinedButton";
-
+import { logout } from "../redux/reducers/userInfo";
 function Navbar() {
   ///////  hooks for theme
   const [theme, colorMode] = useMode();
@@ -25,7 +23,8 @@ function Navbar() {
   ////// hook for reading user data from redux store
   const isLiggedin = useSelector((state) => state.isLoggedin);
   const { user } = useSelector((state) => state.user_info);
-
+  /////// hook for dispatching redux store
+  const dispatch=useDispatch(user)
   let Avatar = "";
   if (user.profileImage) {
     Avatar = <Box component="img" src={user.profileImage} borderRadius="50%" />;
@@ -41,6 +40,13 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logoutHandler = () => {
+    handleClose()
+    dispatch(logout())
+    navigate('/auth/login')
+    
+  }
   return (
     <Box
       sx={{
@@ -60,34 +66,37 @@ function Navbar() {
       <Box display="flex">
         {/* Added gap here */}
 
-                          <Tooltip title={theme.palette.mode==='dark' ? "light":"dark"} placement="top-start"  TransitionComponent={Fade} >
-
-        <IconButton
-          size="large"
-          onClick={() => {
-            colorMode.toggleColorMode();
-          }}
+        <Tooltip
+          title={theme.palette.mode === "dark" ? "light" : "dark"}
+          placement="top-start"
+          TransitionComponent={Fade}
+        >
+          <IconButton
+            size="large"
+            onClick={() => {
+              colorMode.toggleColorMode();
+            }}
           >
-          
-          <LightModeIcon sx={{ color: colors.greenAccent[500] }} />
+            <LightModeIcon sx={{ color: colors.greenAccent[500] }} />
           </IconButton>
-          </Tooltip>
+        </Tooltip>
         {isLiggedin && (
-                            <Tooltip title="notifications" placement="top-start"  TransitionComponent={Fade} >
-
-          <IconButton size="large">
-            <NotificationsIcon sx={{ color: colors.greenAccent[500] }} />
+          <Tooltip
+            title="notifications"
+            placement="top-start"
+            TransitionComponent={Fade}
+          >
+            <IconButton size="large">
+              <NotificationsIcon sx={{ color: colors.greenAccent[500] }} />
             </IconButton>
-            </Tooltip>
-        
+          </Tooltip>
         )}
-                  <Tooltip title="FAQ" placement="top-start"  TransitionComponent={Fade} >
-
-        <IconButton size="large">
-          <HelpIcon sx={{ color: colors.greenAccent[500] }} />
-        </IconButton>
-</Tooltip>
-        {!isLiggedin ? (
+        <Tooltip title="FAQ" placement="top-start" TransitionComponent={Fade}>
+          <IconButton size="large">
+            <HelpIcon sx={{ color: colors.greenAccent[500] }} />
+          </IconButton>
+        </Tooltip>
+        {isLiggedin ? (
           <>
             <Box
               id="basic-button"
@@ -131,6 +140,14 @@ function Navbar() {
               </Box>
             </Box>
             <Menu
+              transitionDuration={700}
+              sx={{
+                "& .MuiMenu-paper": {
+                  bgcolor: colors.primary[500],
+                  color: colors.greenAccent[500],
+                  marginTop: "5px",
+                },
+              }}
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
@@ -138,18 +155,66 @@ function Navbar() {
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
             </Menu>
           </>
         ) : (
-          <Tooltip title="Logout" placement="top-start"  TransitionComponent={Fade} >
-            <IconButton size="large">
-              <LogoutIcon sx={{ color: colors.redAccent[500] }} />
+          <>
+              <IconButton
+                
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+                sx={{ color: colors.greenAccent[500] }}
+                
+            >
+              <MenuIcon />
             </IconButton>
-            </Tooltip>
-            
+            <Menu
+              transitionDuration={700}
+              sx={{
+                "& .MuiMenu-paper": {
+                  bgcolor: colors.primary[500],
+                  color: colors.greenAccent[500],
+                  marginTop: "5px",
+                },
+              }}
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuItem onClick={() => navigate("/auth/login")}>
+                Login
+              </MenuItem>
+              <MenuItem onClick={() => navigate("/auth/register")}>
+                Sign up
+              </MenuItem>
+            </Menu>
+          </>
         )}
       </Box>
     </Box>

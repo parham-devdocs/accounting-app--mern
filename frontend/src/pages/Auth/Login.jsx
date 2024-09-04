@@ -10,7 +10,7 @@ import { toast, Toaster } from "sonner";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import { useNavigate } from "react-router-dom";
 import {useDispatch  } from "react-redux";
-import {  login } from "../../redux/reducers/userInfo";
+import {  addUserInfo, login } from "../../redux/reducers/userInfo";
 const Login = () => {
   /////// hooks for theme
   const [theme] = useMode();
@@ -56,6 +56,7 @@ const Login = () => {
       toast.error(error); // Show error toast if there's an error
     } else if (data) {
       toast.success("User logged in successfully"); // Show success toast if data is received
+      dispatch(addUserInfo(data))
 dispatch(login())
       setTimeout(() => { // a delay of 2 secs before navigation
 

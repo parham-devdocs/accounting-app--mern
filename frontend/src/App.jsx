@@ -1,46 +1,68 @@
 import { createContext } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { tokens, useMode } from "./Theme";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./Layouts/Layout";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import DashboardLayout from "./Layouts/DashboardLayout";
 import Expenses from "./pages/Expenses";
 import Incomes from "./pages/Incomes";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import AuthLayout from "./Layouts/AuthLayout";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-
 import { persistor,store }  from "./redux/store";
+import MainLayout from "./Layouts/MainLayout";
+import Contact from "./pages/Main/Contact";
+import Contribute from "./pages/Main/Contribute";
+import Home from "./pages/Main/Home";
 
 const ColorModeContext = createContext();
-
-function App() {
-  const [theme, colorMode] = useMode();
-  const colors = tokens(theme.palette.mode);
+function Main() {
+  const isLoggedin = useSelector((state) => state.isLoggedin);
+  console.log(isLoggedin);
 
   return (
-    <PersistGate loading={null} persistor={persistor}>
-      <Provider store={store}>
-        <ColorModeContext.Provider value={colorMode}>
-          <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/dashboard" element={<Layout />}>
-                  <Route path="Expenses" element={<Expenses />} />
-                  <Route path="Incomes" element={<Incomes />} />
-                </Route>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedin ? <DashboardLayout /> : <Navigate to="/auth/login" />
+          }
+        >
+          <Route path="Expenses" element={<Expenses />} />
+          <Route path="Incomes" element={<Incomes />} />
+        </Route>
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />}/>
+        <Route path="/Contact" element={<Contact />}/>
+          <Route path="/Contribute" element={<Contribute />}/>
+          </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
-                <Route path="/auth" element={<AuthLayout />}>
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </ThemeProvider>
-        </ColorModeContext.Provider>
-      </Provider>
-    </PersistGate>
+function App() {
+ 
+  const [theme, colorMode] = useMode();
+
+  return (
+    
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+            <Main/>
+            </ThemeProvider>
+          </ColorModeContext.Provider>
+        </Provider>
+      </PersistGate>
+  
   );
 }
 

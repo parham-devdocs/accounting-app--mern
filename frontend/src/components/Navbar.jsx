@@ -27,7 +27,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   ////// hook for reading user data from redux store
-  const isLiggedin = useSelector((state) => state.isLoggedin);
+  const isLoggedin = useSelector((state) => state.isLoggedin);
   const { user } = useSelector((state) => state.user_info);
   /////// hook for dispatching redux store
   const dispatch = useDispatch(user);
@@ -77,8 +77,8 @@ function Navbar() {
         ountify
       </Typography>
       {/* middle part */}
-      {!isLiggedin && (
-        <Box display="flex" gap={5}>
+      {!isLoggedin && (
+        <Box display="flex" gap={5} >
           {navItems.map((item, index) => {
             return (
               <Link
@@ -86,6 +86,7 @@ function Navbar() {
                 sx={{ cursor: "pointer" }}
                 key={index}
                 href={item.href}
+                className=" animate-fadeIn"
               >
                 <Typography
                   variant="h5"
@@ -118,7 +119,7 @@ function Navbar() {
             <LightModeIcon sx={{ color: colors.greenAccent[500] }} />
           </IconButton>
         </Tooltip>
-        {isLiggedin && (
+        {isLoggedin && (
           <Tooltip
             title="notifications"
             placement="top-start"
@@ -134,7 +135,7 @@ function Navbar() {
             <HelpIcon sx={{ color: colors.greenAccent[500] }} />
           </IconButton>
         </Tooltip>
-        {isLiggedin ? (
+        {isLoggedin ? (
           <>
             <Box
               id="basic-button"
@@ -164,13 +165,13 @@ function Navbar() {
               </Typography>
               <Box
                 sx={{
-                  borderColor: colors.greenAccent[500],
+                  borderColor: colors.blueAccent[500],
                   border: "2px solid", // Adjust the border thickness as needed
                   borderRadius: "50%",
                   height: "100%",
                   width: "30px",
                   backgroundColor: "transparent", // Ensures the background is transparent
-                  color: colors.greenAccent[500], // Ensures the text color is white
+                  color: colors.blueAccent[500], // Ensures the text color is white
                 }}
                 alt="Remy Sharp"
               >

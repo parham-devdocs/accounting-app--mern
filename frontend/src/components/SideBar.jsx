@@ -10,6 +10,7 @@ import { Box, Link } from "@mui/material";
 import { tokens, useMode } from "../Theme";
 import { useEffect, useState } from "react";
 import useWindowResize from "../hooks/useResizer";
+import { useLocation } from "react-router-dom";
 
 const sidebar = [
   { label: "Profile", href: "/dashboard/Profile", icon: <AccountCircleIcon /> },
@@ -31,16 +32,23 @@ const sidebar = [
 const SideBar = () => {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
-
+const location=useLocation()
   const [collapsed, setCollapsed] = useState(false);
   const [collapseSideBar] = useWindowResize();
-
+console.log(location.pathname)
   const collapseHandler = () => {
     setCollapsed((prev) => !prev);
   };
 
   useEffect(() => {
-    collapseSideBar ? setCollapsed(true) : setCollapsed(false);
+    if (location.pathname === "/dashboard/Statistics") {
+      setCollapsed(true)
+    }
+    else {
+          collapseSideBar ? setCollapsed(true) : setCollapsed(false);
+
+      
+    }
   }, [collapseSideBar]);
 
   return (

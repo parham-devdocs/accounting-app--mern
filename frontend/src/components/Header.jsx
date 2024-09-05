@@ -63,7 +63,7 @@ const Header = ({
           {subtitle}
         </Typography>
 
-        {mobileMode ? (
+        {!mobileMode ? (
           <Box display="flex" gap={3} alignItems="center">
             {" "}
             <BasicDatePicker
@@ -169,7 +169,6 @@ const Header = ({
                   borderRadius="9px"
                   hovercolor={colors.primary[500]}
                   onClick={() => console.log(dates)}
-                  // sx={{marginTop:"10px"}}
                 >
                   {" "}
                   <Typography variant="h6">Explore</Typography>

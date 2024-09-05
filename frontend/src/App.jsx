@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { tokens, useMode } from "./Theme";
+import {  useMode } from "./Theme";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import DashboardLayout from "./Layouts/DashboardLayout";
 import Expenses from "./pages/Expenses";
@@ -15,7 +15,7 @@ import MainLayout from "./Layouts/MainLayout";
 import Contact from "./pages/Main/Contact";
 import Contribute from "./pages/Main/Contribute";
 import Home from "./pages/Main/Home";
-
+import Statistics from "./pages/Statistics";
 const ColorModeContext = createContext();
 function Main() {
   const isLoggedin = useSelector((state) => state.isLoggedin);
@@ -32,6 +32,7 @@ function Main() {
         >
           <Route path="Expenses" element={<Expenses />} />
           <Route path="Incomes" element={<Incomes />} />
+          <Route path="statistics" element={<Statistics/>}/>
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

@@ -14,9 +14,11 @@ const Btn = ({
 }) => {
   return (
     <Button
+      
       variant="contained"
       disabled={disabled}
       sx={{
+        
         backgroundColor: bgColor,
         transition:
           "background-color 400ms ease-in-out, color 400ms ease-in-out, border-color 400ms ease-in-out",

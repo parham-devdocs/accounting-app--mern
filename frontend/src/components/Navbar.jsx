@@ -203,7 +203,7 @@ function Navbar() {
                 horizontal: "right",
               }}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={()=>navigate('/dashboard/profile')}>Profile</MenuItem>
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>
             </Menu>
           </>

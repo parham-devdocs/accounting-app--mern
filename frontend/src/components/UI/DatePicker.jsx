@@ -5,7 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { tokens, useMode } from "../../Theme";
 
- function BasicDatePicker({onDateChangeHandler}) {
+ function BasicDatePicker({onDateChangeHandler,label}) {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
 
@@ -13,7 +13,7 @@ import { tokens, useMode } from "../../Theme";
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DatePicker"]}>
         <DatePicker
-          label="Pick a date"
+          label={label}
           disableFuture
                   closeOnSelect
                   onChange={(e)=>onDateChangeHandler(e)}

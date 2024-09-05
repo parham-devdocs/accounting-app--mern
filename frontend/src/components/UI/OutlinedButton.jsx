@@ -17,7 +17,6 @@ const OutlinedButton = ({
       variant="outlined"
       type={type}
       sx={{
-        ...props,
         color,
         height: "2rem",
 

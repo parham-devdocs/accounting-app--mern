@@ -76,8 +76,11 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
         >
           <Button
             color={colors.greenAccent[500]}
+            bgColor={colors.primary[500]}
+            hoverBgColor={colors.greenAccent[200]}
             borderColor={colors.greenAccent[500]}
-            borderRadius="8px"
+            borderRadius="9px"
+            hovercolor={colors.primary[500]}
             disabled={params.disabled} // Disable when the cell is being edited
             onClick={() => updateFn(params.row)}
           >
@@ -85,8 +88,11 @@ export default function DataGridDemo({ deleteFn, getFn, data, updateFn }) {
           </Button>
           <Button
             color={colors.greenAccent[500]}
+            bgColor={colors.primary[500]}
+            hoverBgColor={colors.greenAccent[200]}
             borderColor={colors.greenAccent[500]}
-            borderRadius="8px"
+            borderRadius="9px"
+            hovercolor={colors.primary[500]}
             onClick={() => {
               deleteFn(params.row._id);
             }}

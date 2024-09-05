@@ -7,8 +7,9 @@ const Btn = ({
   hovercolor,
   bgColor,
   borderRadius,
-    borderColor,
-disabled,
+  borderColor,
+  disabled,
+  hoverBgColor,
   ...props
 }) => {
   return (
@@ -16,19 +17,22 @@ disabled,
       variant="contained"
       disabled={disabled}
       sx={{
-        backgroundColor: { bgColor },
-        transition: "all",
-        transitionTimingFunction: "ease-in-out",
-        transitionDuration: 500,
-        color: { color },
+        backgroundColor: bgColor,
+        transition:
+          "background-color 400ms ease-in-out, color 400ms ease-in-out, border-color 400ms ease-in-out",
+        color: color,
         height: "2rem",
-        borderRadius: { borderRadius },
-        border:  `1px solid ${borderColor}`, // No border if disabled
+        borderRadius: borderRadius,
+        border: `1px solid ${borderColor}`,
         "&:hover": {
-          backgroundColor: "white", // Keep background transparent
+          backgroundColor: hoverBgColor,
           color: hovercolor,
-          borderColor: hovercolor, // Keep border color fixed
+          borderColor: hovercolor,
         },
+        ...(disabled && {
+          border: "none", // Optional: No border if disabled
+          backgroundColor: "lightgray", // Optional: Change background if disabled
+        }),
       }}
       {...props} // Spread other props
     >

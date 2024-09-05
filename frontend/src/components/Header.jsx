@@ -1,10 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import React from "react";
 import { tokens, useMode } from "../Theme";
 import OutlinedButton from "./UI/OutlinedButton";
-import DatePicker from "./UI/DatePicker";
 import BasicDatePicker from "./UI/DatePicker";
-
+import SearchIcon from "@mui/icons-material/Search";
+import Button from "../components/UI/Button";
 const Header = ({
   title,
   subtitle,
@@ -46,8 +46,21 @@ const Header = ({
 
         <Box display="flex" gap={3}>
           {" "}
-          <BasicDatePicker onDateChangeHandler={(e)=>console.log(e)} />
-          <BasicDatePicker onDateChangeHandler={(e)=>console.log(e)}/>
+          <BasicDatePicker onDateChangeHandler={(e) => console.log(e)} />
+          <BasicDatePicker onDateChangeHandler={(e) => console.log(e)} />
+          <Button
+            color={colors.greenAccent[500]}
+            bgColor={colors.primary[500]}
+            hoverBgColor={colors.greenAccent[200]}
+            borderColor={colors.greenAccent[500]}
+            borderRadius="9px"
+            hovercolor={colors.primary[500]}
+          >
+            {" "}
+            <Typography variant="h6">
+              <SearchIcon />
+            </Typography>
+          </Button>
         </Box>
       </Box>
     </Box>

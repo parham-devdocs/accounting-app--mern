@@ -3,7 +3,7 @@ import LineChart from "../components/Statistics/LineChart";
 import ChartLayout from "../components/Statistics/ChartLayout";
 import { tokens, useMode } from "../theme";
 import PieChart from "../components/Statistics/PieChart";
-
+import { expensesPie,incomesPie } from "./data";
 const Statistics = () => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
@@ -19,23 +19,15 @@ const Statistics = () => {
       flexWrap="wrap"
     >
       <ChartLayout minWidth="600px" height="400px" header="Expenses vs Incomes">
-        <LineChart />
+        <LineChart xAxis="Months" yAxis="Amount" />
       </ChartLayout>
-      <ChartLayout minWidth="400px" height="400px" header="Expenses">
-        <PieChart />
+      <ChartLayout minWidth="400px" height="400px" header="Expenses" >
+        <PieChart data={expensesPie} />
       </ChartLayout>
       <ChartLayout minWidth="400px" height="400px" header="Incomes">
-        <PieChart />
+        <PieChart data={incomesPie}  />
       </ChartLayout>
-      <ChartLayout minWidth="600px" height="400px" header="Expenses vs Incomes">
-        <LineChart />
-      </ChartLayout>{" "}
-      <ChartLayout minWidth="600px" height="400px" header="Expenses vs Incomes">
-        <LineChart />
-      </ChartLayout>{" "}
-      <ChartLayout minWidth="600px" height="400px" header="Expenses vs Incomes">
-        <LineChart />
-      </ChartLayout>
+     
     </Box>
   );
 };

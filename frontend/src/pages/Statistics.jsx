@@ -11,13 +11,23 @@ import Button from "../components/UI/Button";
 import  SearchIcon  from '@mui/icons-material/Search';
 import { useState } from "react";
 import FinancialGoal from "../components/UI/FinancialGoal";
+import axios from 'axios';
+import { toast,Toaster } from "sonner";
 const Statistics = () => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   const [monthlyReportDate, setMonthlyReportDat] = useState('')
   const [showGoalModal, setShowGoalMedal] = useState(false)
   const addGoalHandler = (e) => {
-    console.log(e)
+    
+    axios.post("http://localhost:5000/api/v1/goal", e)
+      .then((res) => {
+        toast.success("financial target  suuccessfuly added")
+      })
+      .catch((err) => {
+      toast.warning("financial target already exists")
+    })
+  
     setShowGoalMedal(false)
   }
   return (
@@ -58,14 +68,9 @@ const Statistics = () => {
               borderRadius="9px"
               hovercolor={colors.primary[500]}
               onClick={() => setShowGoalMedal(true)}
-              
             >
-              
-              <Typography variant="h5">
-                set a goal
-              </Typography>
+              <Typography variant="h5">set a goal</Typography>
             </Button>
-            
           </Box>
         </ChartLayout>
         <BarChart data={goalsBar} />
@@ -137,7 +142,17 @@ const Statistics = () => {
           </ChartLayout>
         </Box>
       </ChartLayout>
-      <FinancialGoal showModal={ showGoalModal } handleFormSubmit={addGoalHandler} onCloseModalHandler={()=>setShowGoalMedal((prev)=>!prev)}/>
+      <FinancialGoal
+        showModal={showGoalModal}
+        handleFormSubmit={addGoalHandler}
+        onCloseModalHandler={() => setShowGoalMedal((prev) => !prev)}
+      />
+      <Toaster
+        position="bottom-right"
+        
+        expand
+        richColors
+      />{" "}
     </Box>
   );
 };

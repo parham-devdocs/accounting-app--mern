@@ -195,8 +195,7 @@ dispatch(login())
             </Link>
 
             <Toaster
-              position="bottom-right"
-              style={{ color: "ThreeDFace" }}
+              position="top-left"
               expand
               richColors
             />

@@ -45,3 +45,15 @@ export const AddGoal = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+
+export const getGoals =async (req,res) => {
+    try {
+        const goals =await goalModel.find({})
+        res.status(201).json({message:goals})
+    } catch (error) {
+        res.status(500).json({error})
+    }
+}

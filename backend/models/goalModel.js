@@ -9,6 +9,12 @@ const goalSchema = new mongoose.Schema(
       maxLength: 20,
       trim: true,
     },
+    accomplished: {
+      type: Boolean,
+      required: true,
+      default:false
+    }
+
   
   },
   { timestamps: true }

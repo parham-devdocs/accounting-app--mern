@@ -10,10 +10,16 @@ import BasicDatePicker from "../components/UI/DatePicker";
 import Button from "../components/UI/Button";
 import  SearchIcon  from '@mui/icons-material/Search';
 import { useState } from "react";
+import FinancialGoal from "../components/UI/FinancialGoal";
 const Statistics = () => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   const [monthlyReportDate, setMonthlyReportDat] = useState('')
+  const [showGoalModal, setShowGoalMedal] = useState(false)
+  const addGoalHandler = (e) => {
+    console.log(e)
+    setShowGoalMedal(false)
+  }
   return (
     <Box
       minHeight="500px"
@@ -33,7 +39,35 @@ const Statistics = () => {
       <ChartLayout minWidth="400px" height="400px" header="Incomes">
         <PieChart data={incomesPie} />
       </ChartLayout>
-      <ChartLayout minWidth="600px" height="400px" header="finincial goals">
+      <ChartLayout minWidth="600px" height="400px">
+        <ChartLayout
+          padding={1}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          header="Financial Goals"
+        >
+          <Box display="flex" gap={2} alignItems="center">
+            <Button
+              color={colors.greenAccent[500]}
+              bgColor={colors.primary[500]}
+              hoverBgColor={colors.greenAccent[200]}
+              borderColor={colors.greenAccent[500]}
+              borderRadius="9px"
+              hovercolor={colors.primary[500]}
+              onClick={() => setShowGoalMedal(true)}
+              
+            >
+              
+              <Typography variant="h5">
+                set a goal
+              </Typography>
+            </Button>
+            
+          </Box>
+        </ChartLayout>
         <BarChart data={goalsBar} />
       </ChartLayout>
       <ChartLayout
@@ -65,12 +99,11 @@ const Statistics = () => {
               {" "}
               <Typography variant="h6">
                 <SearchIcon />
-              
               </Typography>
             </Button>
             <BasicDatePicker
               views={["month", "year"]}
-              onDateChangeHandler={(e) =>setMonthlyReportDat(e.$d)}
+              onDateChangeHandler={(e) => setMonthlyReportDat(e.$d)}
             />
           </Box>
         </ChartLayout>
@@ -104,6 +137,7 @@ const Statistics = () => {
           </ChartLayout>
         </Box>
       </ChartLayout>
+      <FinancialGoal showModal={ showGoalModal } handleFormSubmit={addGoalHandler} onCloseModalHandler={()=>setShowGoalMedal((prev)=>!prev)}/>
     </Box>
   );
 };

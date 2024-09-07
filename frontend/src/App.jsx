@@ -16,6 +16,7 @@ import Contact from "./pages/Main/Contact";
 import Contribute from "./pages/Main/Contribute";
 import Home from "./pages/Main/Home";
 import Statistics from "./pages/Statistics";
+import FinancialGoals from "./pages/FinancialGoals";
 const ColorModeContext = createContext();
 function Main() {
   const isLoggedin = useSelector((state) => state.isLoggedin);
@@ -32,7 +33,8 @@ function Main() {
         >
           <Route path="Expenses" element={<Expenses />} />
           <Route path="Incomes" element={<Incomes />} />
-          <Route path="statistics" element={<Statistics/>}/>
+          <Route path="statistics" element={<Statistics />} />
+          <Route path="Goals" element={<FinancialGoals/> } />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

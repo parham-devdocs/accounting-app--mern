@@ -5,7 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { tokens, useMode } from "../../Theme";
 
- function BasicDatePicker({onDateChangeHandler,label}) {
+ function BasicDatePicker({onDateChangeHandler,label,views}) {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
 
@@ -14,6 +14,7 @@ import { tokens, useMode } from "../../Theme";
       <DemoContainer components={["DatePicker"]}>
         <DatePicker
           label={label}
+          views={views}
           disableFuture
                   closeOnSelect
                   onChange={(e)=>onDateChangeHandler(e)}

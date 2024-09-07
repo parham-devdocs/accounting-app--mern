@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { tokens, useMode } from "../../theme";
 
-const ChartLayout = ({ children, height, minWidth,header, ...props }) => {
+const ChartLayout = ({ children, height, minWidth,header,padding=3, ...props }) => {
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   return (
     <Box
-      padding={3}
+      padding={padding}
       height={height}
       minWidth={minWidth}
       bgcolor={colors.primary[500]}

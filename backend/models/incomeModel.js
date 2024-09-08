@@ -23,7 +23,8 @@ const inComeSchema = new mongoose.Schema({
        type: Date,
         required: true,
         trim:true 
-    }, category: {
+    },
+    category: {
         type: String,
         required: true,
         trim:true

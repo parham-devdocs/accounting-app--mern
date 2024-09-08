@@ -85,7 +85,7 @@ export const editExpense = async (req, res) => {
 };
 
 export const aggregateExpenses = async (req, res) => {
-  const date=new Date()
+  const date = new Date();
   const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
   const endDate = new Date(
     date.getFullYear(),
@@ -96,26 +96,30 @@ export const aggregateExpenses = async (req, res) => {
     59,
     999
   );
-  const items = await ExpenseModel.aggregate([
-    {
-      $match: {
-        createdAt: {
-          $gte: startDate,
-          $lte: endDate,
+  try {
+    const items = await ExpenseModel.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: startDate,
+            $lte: endDate,
+          },
         },
       },
-    },
-    {
-      $group: {
-        _id: "$category", // Group by the category field
-       
-      value: { $sum: "$amount" }, // Sum the amount for the Housing category
-    },
-  },
-  ]);
-  const modifiedItems=[]
-  items.map(item => {
-    modifiedItems.push({label:item._id,value:item.value,id:item._id})
-  })
-  res.send(modifiedItems)
+      {
+        $group: {
+          _id: "$category", // Group by the category field
+
+          value: { $sum: "$amount" }, // Sum the amount for the Housing category
+        },
+      },
+    ]);
+    const modifiedItems = [];
+    items.map((item) => {
+      modifiedItems.push({ label: item._id, value: item.value, id: item._id });
+    });
+    res.status(201).json({ message: modifiedItems });
+  } catch (error) {
+    res.status(500).json({ message: "something wrong happend in the server" });
+  }
 };

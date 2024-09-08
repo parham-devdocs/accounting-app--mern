@@ -98,3 +98,45 @@ export const editIncome = async (req, res) => {
     res.status(500).json({ error: "Something went wrong on the server!" });
   }
 };
+
+
+export const aggregateIncomes = async (req, res) => {
+  const date = new Date();
+  const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const endDate = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+    23,
+    59,
+    59,
+    999
+  );
+  try {
+    const items = await InComeModel.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: startDate,
+            $lte: endDate,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$category", // Group by the category field
+
+          value: { $sum: "$amount" }, // Sum the amount for the Housing category
+        },
+      },
+    ]);
+    const modifiedItems = [];
+    items.map((item) => {
+      modifiedItems.push({ label: item._id, value: item.value, id: item._id });
+    });
+    res.status(201).json({message:modifiedItems})
+  } catch (error) {
+    res.status(500).json({message:"something wrong happend in the server"})
+  }
+  
+};

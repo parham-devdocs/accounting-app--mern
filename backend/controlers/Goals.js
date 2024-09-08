@@ -1,14 +1,14 @@
 import goalModel from "../models/goalModel.js";
 
 export const AddGoal = async (req, res) => {
-  const { amount } = req.body;
+  const { target,budget } = req.body;
 
   try {
-    if (!amount) {
-      return res.status(400).json({ message: "Amount not available" });
+    if (!target || !budget) {
+      return res.status(400).json({ message: "target or budget not available" });
     }
-    if (amount < 1) {
-      return res.status(400).json({ message: "Amount not valid" });
+    if (target < 1 || budget<1) {
+      return res.status(400).json({ message: "target or budget not valid" });
     }
 
     const date = new Date();
@@ -37,7 +37,7 @@ export const AddGoal = async (req, res) => {
         .json({ message: "Goal already exists for this month." });
     }
     // Create and save the new goal
-    const goal = new goalModel({ amount });
+    const goal = new goalModel({ target,budget });
     await goal.save();
 
     res.status(201).json({ message: "Goal added successfully", goal });

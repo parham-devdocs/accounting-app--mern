@@ -3,7 +3,13 @@ import mongoose from "mongoose";
 const goalSchema = new mongoose.Schema(
   {
    
-    amount: {
+    budget: {
+      type: Number,
+      required: true,
+      maxLength: 20,
+      trim: true,
+    },
+      target: {
       type: Number,
       required: true,
       maxLength: 20,

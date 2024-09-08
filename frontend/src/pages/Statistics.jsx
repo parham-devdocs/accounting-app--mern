@@ -10,7 +10,7 @@ import BasicDatePicker from "../components/UI/DatePicker";
 import Button from "../components/UI/Button";
 import  SearchIcon  from '@mui/icons-material/Search';
 import { useState } from "react";
-import FinancialGoal from "../components/UI/FinancialGoal";
+import FinancialGoalModal from "../components/Statistics/FinancialGoalModal";
 import axios from 'axios';
 import { toast,Toaster } from "sonner";
 const Statistics = () => {
@@ -142,7 +142,7 @@ const Statistics = () => {
           </ChartLayout>
         </Box>
       </ChartLayout>
-      <FinancialGoal
+      <FinancialGoalModal
         showModal={showGoalModal}
         handleFormSubmit={addGoalHandler}
         onCloseModalHandler={() => setShowGoalMedal((prev) => !prev)}

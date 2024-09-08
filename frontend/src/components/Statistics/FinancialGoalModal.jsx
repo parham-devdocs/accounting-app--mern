@@ -10,7 +10,7 @@ import {
 import * as yup from "yup";
 import { useState } from "react";
 import { tokens, useMode } from "../../Theme";
-import OutlinedButton from "./OutlinedButton";
+import OutlinedButton from "../UI/OutlinedButton";
 import { Formik } from "formik";
 
 const FinancialGoal = ({
@@ -22,12 +22,13 @@ const FinancialGoal = ({
   const [theme] = useMode();
   const colors = tokens(theme.palette.mode);
   const [formData, setFormData] = useState({
-    amount: "",
+    target: "",
+    budget:""
   });
 
   const validationSchema = yup.object({
-    
-    amount: yup.number().required("Amount is required"),
+    budget: yup.number().required("budget is required"),
+    target: yup.number().required("target is required"),
   });
 
 
@@ -57,40 +58,69 @@ const FinancialGoal = ({
             bgcolor={colors.blueAccent[900]}
             p={5}
             borderRadius={10}
-            display="grid"
+            display="flex"
             onSubmit={handleSubmit}
+            flexDirection="column"
           >
-              <Box  component="div" className=" h-20">
-                <TextField
-                  className=" w-full"
-                  type="number"
-                  placeholder="Set your goal"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values['amount']} // Use key for value binding
-                  name='amount' // Set name attribute for Formik
-                  error={!!touched["amount"] && !!errors["amount"]}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: colors.greenAccent[500],
-                      },
-                      "&:hover fieldset": {
-                        borderColor: colors.greenAccent[600],
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: colors.greenAccent[500],
-                      },
+            <Box component="div" className=" h-20">
+              <TextField
+                className=" w-full"
+                type="number"
+                placeholder="Set your goal"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values["target"]} // Use key for value binding
+                name="target" // Set name attribute for Formik
+                error={!!touched["target"] && !!errors["target"]}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: colors.greenAccent[500],
                     },
-                  
-                  }}
-                />
-                <Typography variant="p" color="red" fontSize={12}>
-                  {touched["amount"] && errors["amount"]}
-                </Typography>
-              </Box>
-            
+                    "&:hover fieldset": {
+                      borderColor: colors.greenAccent[600],
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: colors.greenAccent[500],
+                    },
+                  },
+                }}
+              />
+              <Typography variant="p" color="red" fontSize={12}>
+                {touched["target"] && errors["target"]}
+              </Typography>
+            </Box>
 
+                        <Box component="div" className=" h-20">
+
+            
+            <TextField
+              className=" w-full"
+              type="number"
+              placeholder="Set your budget"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values["budget"]} // Use key for value binding
+              name="budget" // Set name attribute for Formik
+              error={!!touched["budget"] && !!errors["budget"]}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: colors.greenAccent[500],
+                  },
+                  "&:hover fieldset": {
+                    borderColor: colors.greenAccent[600],
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: colors.greenAccent[500],
+                  },
+                },
+              }}
+            />
+            <Typography variant="p" color="red" fontSize={12}>
+              {touched["budget"] && errors["budget"]}
+            </Typography>
+</Box>
             <FormControl
               variant="filled"
               sx={{
@@ -114,9 +144,7 @@ const FinancialGoal = ({
                   borderColor: colors.greenAccent[500], // Change border color when focused
                 },
               }}
-            >
-             
-            </FormControl>
+            ></FormControl>
 
             <Box display="flex" gap={2} justifyContent="end" marginTop={2}>
               <OutlinedButton

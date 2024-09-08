@@ -44,14 +44,13 @@ export const deleteExpense = async (req, res) => {
     if (!deletedExpense) {
       return res.status(404).json({ message: "Expense not found" });
     }
-    
+
     res.status(200).json({ message: "income deleted" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "something went wrong in the server!" });
   }
 };
-
 
 export const editExpense = async (req, res) => {
   const { title, amount, category, description, date } = req.body;
@@ -83,4 +82,40 @@ export const editExpense = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ error: "Something went wrong on the server!" });
   }
+};
+
+export const aggregateExpenses = async (req, res) => {
+  const date=new Date()
+  const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const endDate = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+    23,
+    59,
+    59,
+    999
+  );
+  const items = await ExpenseModel.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $gte: startDate,
+          $lte: endDate,
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$category", // Group by the category field
+       
+      value: { $sum: "$amount" }, // Sum the amount for the Housing category
+    },
+  },
+  ]);
+  const modifiedItems=[]
+  items.map(item => {
+    modifiedItems.push({label:item._id,value:item.value,id:item._id})
+  })
+  res.send(modifiedItems)
 };

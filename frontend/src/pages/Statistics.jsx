@@ -9,7 +9,7 @@ import Card from "../components/Statistics/Card";
 import BasicDatePicker from "../components/UI/DatePicker";
 import Button from "../components/UI/Button";
 import  SearchIcon  from '@mui/icons-material/Search';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FinancialGoalModal from "../components/Statistics/FinancialGoalModal";
 import axios from 'axios';
 import { toast,Toaster } from "sonner";
@@ -18,6 +18,9 @@ const Statistics = () => {
   const colors = tokens(theme.palette.mode);
   const [monthlyReportDate, setMonthlyReportDat] = useState('')
   const [showGoalModal, setShowGoalMedal] = useState(false)
+  const [aggregatedIncomes, setAggregatedIcomes] = useState([])
+    const [aggregatedExpenses, setAggregatedExpenses] = useState([]);
+
   const addGoalHandler = (e) => {
     
     axios.post("http://localhost:5000/api/v1/goal", e)
@@ -30,6 +33,17 @@ const Statistics = () => {
   
     setShowGoalMedal(false)
   }
+
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/v1/transactions/aggregate-expenses")
+      .then((res) => setAggregatedExpenses(res.data.message))
+      .catch(err => console.log(err))
+    axios.get("http://localhost:5000/api/v1/transactions/aggregate-incomes")
+      .then((res) => { setAggregatedIcomes(res.data.message)})
+      
+    .catch((err)=>console.log(err))
+  },[])
   return (
     <Box
       minHeight="500px"
@@ -44,10 +58,10 @@ const Statistics = () => {
         <LineChart xAxis="Months" yAxis="Amount" />
       </ChartLayout>
       <ChartLayout minWidth="400px" height="400px" header="Expenses">
-        <PieChart data={expensesPie} />
+        <PieChart data={aggregatedExpenses} />
       </ChartLayout>
       <ChartLayout minWidth="400px" height="400px" header="Incomes">
-        <PieChart data={incomesPie} />
+        <PieChart data={aggregatedIncomes} />
       </ChartLayout>
       <ChartLayout minWidth="600px" height="400px">
         <ChartLayout

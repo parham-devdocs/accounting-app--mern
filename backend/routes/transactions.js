@@ -22,5 +22,6 @@ router.delete("/delete-expense/:id", deleteExpense);
 
 router.put("/update-expense/:id", editExpense)
 
-router.get("/aggregate-expenses",aggregateExpenses)
+router.get("/aggregate-expenses", aggregateExpenses)
+
 export default router

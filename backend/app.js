@@ -5,6 +5,7 @@ import db from "./db/db.js";
 import transactions from "./routes/transactions.js";
 import user from "./routes/users.js";
 import goals from "./routes/Goals.js";
+import statistics from "./routes/statistics.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -16,7 +17,8 @@ app.use(cors())
 // Define routes here
 app.use("/api/v1/transactions",transactions);
 app.use("/api/v1/auth", user );
-app.use("/api/v1/goal",goals)
+app.use("/api/v1/goal", goals)
+app.use("/api/v1/statistics",statistics)
 // Start the server
 app.listen(PORT, () => {
     db()

@@ -19,7 +19,8 @@ const Statistics = () => {
   const [monthlyReportDate, setMonthlyReportDat] = useState('')
   const [showGoalModal, setShowGoalMedal] = useState(false)
   const [aggregatedIncomes, setAggregatedIcomes] = useState([])
-    const [aggregatedExpenses, setAggregatedExpenses] = useState([]);
+  const [aggregatedExpenses, setAggregatedExpenses] = useState([]); 
+  const [Expense_vs_Income,setExpense_vs_Income]=useState([])
 
   const addGoalHandler = (e) => {
     
@@ -42,6 +43,9 @@ const Statistics = () => {
     axios.get("http://localhost:5000/api/v1/transactions/aggregate-incomes")
       .then((res) => { setAggregatedIcomes(res.data.message)})
       
+      .catch((err) => console.log(err))
+    axios.get("http://localhost:5000/api/v1/statistics/comparison")
+      .then((res) => setExpense_vs_Income(res.data))
     .catch((err)=>console.log(err))
   },[])
   return (
@@ -55,7 +59,7 @@ const Statistics = () => {
       flexWrap="wrap"
     >
       <ChartLayout minWidth="600px" height="400px" header="Expenses vs Incomes">
-        <LineChart xAxis="Months" yAxis="Amount" />
+        <LineChart xAxis="Months" yAxis="Amount" data={Expense_vs_Income} />
       </ChartLayout>
       <ChartLayout minWidth="400px" height="400px" header="Expenses">
         <PieChart data={aggregatedExpenses} />

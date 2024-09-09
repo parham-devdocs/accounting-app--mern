@@ -1,117 +1,117 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-const data = [
-  {
-    id: "Expenses",
-    color: "#3bbe76",
-    data: [
-      {
-        x: "Jan",
-        y: 87,
-      },
-      {
-        x: "Feb",
-        y: 109,
-      },
-      {
-        x: "Mar",
-        y: 66,
-      },
-      {
-        x: "Apr",
-        y: 220,
-      },
-      {
-        x: "May",
-        y: 79,
-      },
-      {
-        x: "Jun",
-        y: 104,
-      },
-      {
-        x: "Jul",
-        y: 46,
-      },
-      {
-        x: "Aug",
-        y: 228,
-      },
-      {
-        x: "Sept",
-        y: 69,
-      },
-      {
-        x: "Oct",
-        y: 36,
-      },
-      {
-        x: "Nov",
-        y: 63,
-      },
-      {
-        x: "Dec",
-        y: 252,
-      },
-    ],
-  },
-  {
-    id: "Incomes",
-    color: "#0d73b7",
-    data: [
-      {
-        x: "Jan",
-        y: 87,
-      },
-      {
-        x: "Feb",
-        y: 109,
-      },
-      {
-        x: "Mar",
-        y: 66,
-      },
-      {
-        x: "Apr",
-        y: 220,
-      },
-      {
-        x: "May",
-        y: 79,
-      },
-      {
-        x: "Jun",
-        y: 104,
-      },
-      {
-        x: "Jul",
-        y: 46,
-      },
-      {
-        x: "Aug",
-        y: 228,
-      },
-      {
-        x: "Sept",
-        y: 69,
-      },
-      {
-        x: "Oct",
-        y: 36,
-      },
-      {
-        x: "Nov",
-        y: 63,
-      },
-      {
-        x: "Dec",
-        y: 252,
-      },
-    ],
-  },
-];
-const MyResponsiveLine = ({ xAxis, yAxis }) => {
+// const data = [
+//   {
+//     id: "Expenses",
+//     color: "#3bbe76",
+//     data: [
+//       {
+//         x: "Jan",
+//         y: 87,
+//       },
+//       {
+//         x: "Feb",
+//         y: 109,
+//       },
+//       {
+//         x: "Mar",
+//         y: 66,
+//       },
+//       {
+//         x: "Apr",
+//         y: 220,
+//       },
+//       {
+//         x: "May",
+//         y: 79,
+//       },
+//       {
+//         x: "Jun",
+//         y: 104,
+//       },
+//       {
+//         x: "Jul",
+//         y: 46,
+//       },
+//       {
+//         x: "Aug",
+//         y: 228,
+//       },
+//       {
+//         x: "Sept",
+//         y: 69,
+//       },
+//       {
+//         x: "Oct",
+//         y: 36,
+//       },
+//       {
+//         x: "Nov",
+//         y: 63,
+//       },
+//       {
+//         x: "Dec",
+//         y: 252,
+//       },
+//     ],
+//   },
+//   {
+//     id: "Incomes",
+//     color: "#0d73b7",
+//     data: [
+//       {
+//         x: "Jan",
+//         y: 87,
+//       },
+//       {
+//         x: "Feb",
+//         y: 109,
+//       },
+//       {
+//         x: "Mar",
+//         y: 66,
+//       },
+//       {
+//         x: "Apr",
+//         y: 220,
+//       },
+//       {
+//         x: "May",
+//         y: 79,
+//       },
+//       {
+//         x: "Jun",
+//         y: 104,
+//       },
+//       {
+//         x: "Jul",
+//         y: 46,
+//       },
+//       {
+//         x: "Aug",
+//         y: 228,
+//       },
+//       {
+//         x: "Sept",
+//         y: 69,
+//       },
+//       {
+//         x: "Oct",
+//         y: 36,
+//       },
+//       {
+//         x: "Nov",
+//         y: 63,
+//       },
+//       {
+//         x: "Dec",
+//         y: 252,
+//       },
+//     ],
+//   },
+// ];
+const MyResponsiveLine = ({ xAxis, yAxis,data }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (

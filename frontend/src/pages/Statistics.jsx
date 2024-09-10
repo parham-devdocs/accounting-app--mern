@@ -3,7 +3,6 @@ import LineChart from "../components/Statistics/LineChart";
 import ChartLayout from "../components/Statistics/ChartLayout";
 import { tokens, useMode } from "../theme";
 import PieChart from "../components/Statistics/PieChart";
-import {  expensesPie, goalsBar, incomesPie } from "./data";
 import BarChart from "../components/Statistics/BarChart";
 import Card from "../components/Statistics/Card";
 import BasicDatePicker from "../components/UI/DatePicker";
@@ -21,7 +20,7 @@ const Statistics = () => {
   const [aggregatedIncomes, setAggregatedIcomes] = useState([])
   const [aggregatedExpenses, setAggregatedExpenses] = useState([]); 
   const [Expense_vs_Income,setExpense_vs_Income]=useState([])
-
+const [saving_target,setSaving_target]=useState([])
   const addGoalHandler = (e) => {
     
     axios.post("http://localhost:5000/api/v1/goal", e)
@@ -46,6 +45,9 @@ const Statistics = () => {
       .catch((err) => console.log(err))
     axios.get("http://localhost:5000/api/v1/statistics/comparison")
       .then((res) => setExpense_vs_Income(res.data))
+      .catch((err) => console.log(err))
+    axios.get("http://localhost:5000/api/v1/goal")
+      .then((res) => setSaving_target(res.data.message))
     .catch((err)=>console.log(err))
   },[])
   return (
@@ -91,7 +93,7 @@ const Statistics = () => {
             </Button>
           </Box>
         </ChartLayout>
-        <BarChart data={goalsBar} />
+        <BarChart data={saving_target} />
       </ChartLayout>
       <ChartLayout
         display="grid"

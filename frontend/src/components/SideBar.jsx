@@ -6,7 +6,7 @@ import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
 import CurrencyExchangeOutlinedIcon from "@mui/icons-material/CurrencyExchangeOutlined";
 
-import { Box, Link } from "@mui/material";
+import { Box, Link, Tooltip } from "@mui/material";
 import { tokens, useMode } from "../Theme";
 import { useEffect, useState } from "react";
 import useWindowResize from "../hooks/useResizer";
@@ -14,9 +14,21 @@ import { useLocation } from "react-router-dom";
 
 const sidebar = [
   { label: "Profile", href: "/dashboard/Profile", icon: <AccountCircleIcon /> },
-  { label: "Statistics", href: "/dashboard/Statistics", icon: <StackedLineChartIcon /> },
-  { label: "Expenses", href: "/dashboard/Expenses", icon: <PaymentOutlinedIcon /> },
-  { label: "Incomes", href: "/dashboard/Incomes", icon: <AddCardOutlinedIcon /> },
+  {
+    label: "Statistics",
+    href: "/dashboard/Statistics",
+    icon: <StackedLineChartIcon />,
+  },
+  {
+    label: "Expenses",
+    href: "/dashboard/Expenses",
+    icon: <PaymentOutlinedIcon />,
+  },
+  {
+    label: "Incomes",
+    href: "/dashboard/Incomes",
+    icon: <AddCardOutlinedIcon />,
+  },
   {
     label: "Financial Goals",
     href: "/dashboard/Goals",
@@ -32,22 +44,19 @@ const sidebar = [
 const SideBar = () => {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
-const location=useLocation()
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [collapseSideBar] = useWindowResize();
-console.log(location.pathname)
+
   const collapseHandler = () => {
     setCollapsed((prev) => !prev);
   };
 
   useEffect(() => {
     if (location.pathname === "/dashboard/Statistics") {
-      setCollapsed(true)
-    }
-    else {
-          collapseSideBar ? setCollapsed(true) : setCollapsed(false);
-
-      
+      setCollapsed(true);
+    } else {
+      collapseSideBar ? setCollapsed(true) : setCollapsed(false);
     }
   }, [collapseSideBar]);
 
@@ -64,21 +73,22 @@ console.log(location.pathname)
         >
           {sidebar.map((item) => {
             return (
-              <MenuItem
-                key={item.label}
-                icon={item.icon}
-                style={{ color: colors.greenAccent[600] }}
-              >
+             
                 <Link
                   href={item.href} // Add href for navigation
                   variant="h2"
                   fontSize={17}
                   underline="none"
-                  color={colors.greenAccent[600]}
+                color={colors.greenAccent[600]}
+                key={item.label}
                 >
-                  {item.label}
+                  <MenuItem
+                    icon={item.icon}
+                    style={{ color: colors.greenAccent[600] }}
+                  >
+                    {collapsed ? "" : item.label}{" "}
+                  </MenuItem>
                 </Link>
-              </MenuItem>
             );
           })}
         </Menu>

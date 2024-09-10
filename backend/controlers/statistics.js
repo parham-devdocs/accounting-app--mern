@@ -67,6 +67,7 @@ export const compare_expenses_incomes = async (req, res) => {
       y: item.averageIncome,
     });
   });
+  console.log(object)
   res.send([
     { id: "Incomes", color: "#0d73b7", data: transformedIncomes },
     { id: "Expenses", color: "#3bbe76", data: transformedExpenses },

@@ -83,16 +83,10 @@ const Expenses = () => {
       <Modal
         showModal={showModal}
         categories={[
-          "Housing",
-          "Transportation",
-          "Food",
-          "Health care",
-          "Personal care",
-          "Entertainment",
-          "Clothing",
-          "Education",
-          "Insurance",
-          "bussiness Expenses",
+          "Salary",
+          "Freelancing",
+          "Investment",
+          "Rental ",
           "Others",
         ]}
         onCloseModalHandler={closeModalHandler}

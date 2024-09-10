@@ -25,6 +25,7 @@ const FinancialGoal = ({
     target: "",
     budget:""
   });
+  console.log(showModal)
 
   const validationSchema = yup.object({
     budget: yup.number().required("budget is required"),
